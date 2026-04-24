@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Book a Slot – ParkSmart</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#050a18;color:#fff;overflow-x:hidden}
+#navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,10,24,.82);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);transition:all .3s}
+.nav-link{color:#94a3b8;transition:color .2s;font-size:.875rem;font-weight:500;position:relative}.nav-link:hover{color:#fff}
+.active-nav{color:#fff!important}.active-nav::after{content:'';display:block;position:absolute;bottom:-4px;left:0;right:0;height:2px;background:linear-gradient(90deg,#7c3aed,#06b6d4);border-radius:1px}
+.grad{background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}.reveal.is-visible{opacity:1;transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;font-weight:600;border-radius:12px;transition:opacity .2s,transform .2s}.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-outline{border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:12px;transition:all .2s}.btn-outline:hover{background:rgba(255,255,255,.06)}
+/* Form Inputs */
+.form-input{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);color:#fff;border-radius:12px;padding:12px 16px;font-size:.9rem;font-family:'Inter',sans-serif;transition:border-color .2s,box-shadow .2s;outline:none;-webkit-appearance:none;appearance:none}
+.form-input:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.2)}
+.form-input::placeholder{color:rgba(255,255,255,.3)}
+.form-input option{background:#1e1b4b;color:#fff}
+.inp-err{border-color:#ef4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.15)!important}
+.err{font-size:.75rem;color:#f87171;margin-top:4px;display:block}
+.err.hidden{display:none}
+.label{display:block;font-size:.875rem;font-weight:500;color:#cbd5e1;margin-bottom:6px}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.875rem}
+.summary-row:last-child{border-bottom:none}
+/* Modal */
+#conf-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;backdrop-filter:blur(8px);padding:16px;align-items:center;justify-content:center}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#050a18}::-webkit-scrollbar-thumb{background:#7c3aed;border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)"><i class="fas fa-square-parking text-white text-lg"></i></div>
+        <span class="text-xl font-bold text-white">Park<span class="grad">Smart</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-7">
+        <a href="index.html"    class="nav-link">Home</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <div class="relative">
+          <button id="modules-btn" class="nav-link flex items-center gap-1 cursor-pointer bg-transparent border-0 p-0">Modules <i class="fas fa-chevron-down text-xs ml-1 opacity-60"></i></button>
+          <div id="modules-menu" class="hidden absolute top-8 left-0 w-52 rounded-2xl shadow-2xl py-2" style="background:#0e1628;border:1px solid rgba(255,255,255,.09)">
+            <a href="admin.html"  class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"><span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs" style="background:rgba(124,58,237,.2)"><i class="fas fa-user-shield text-violet-400"></i></span> Admin Module</a>
+            <a href="user.html"   class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"><span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs" style="background:rgba(6,182,212,.2)"><i class="fas fa-user text-cyan-400"></i></span> User Module</a>
+            <a href="client.html" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"><span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs" style="background:rgba(16,185,129,.2)"><i class="fas fa-building text-emerald-400"></i></span> Client Module</a>
+          </div>
+        </div>
+        <a href="booking.html"  class="nav-link active-nav">Book Now</a>
+        <a href="overview.html" class="nav-link">Overview</a>
+      </div>
+      <a href="booking.html" class="hidden md:block btn-primary px-5 py-2.5 text-sm">Reserve Slot <i class="fas fa-arrow-right ml-1.5 text-xs"></i></a>
+      <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white p-2"><i class="fas fa-bars text-xl"></i></button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 pt-2 flex flex-col gap-3 border-t border-white/5" style="background:rgba(5,10,24,.97)">
+    <a href="index.html"    class="text-gray-300 hover:text-white text-sm py-1">Home</a>
+    <a href="features.html" class="text-gray-300 hover:text-white text-sm py-1">Features</a>
+    <a href="admin.html"    class="text-gray-300 hover:text-white text-sm py-1">Admin Module</a>
+    <a href="user.html"     class="text-gray-300 hover:text-white text-sm py-1">User Module</a>
+    <a href="client.html"   class="text-gray-300 hover:text-white text-sm py-1">Client Module</a>
+    <a href="booking.html"  class="text-gray-300 hover:text-white text-sm py-1">Book Now</a>
+    <a href="overview.html" class="text-gray-300 hover:text-white text-sm py-1">Overview</a>
+    <a href="booking.html"  class="btn-primary text-center py-2.5 text-sm mt-1">Reserve Slot</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<section class="pt-32 pb-10" style="background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(124,58,237,.25),transparent 70%),#050a18">
+  <div class="max-w-5xl mx-auto px-4 text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6" style="background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);color:#a78bfa">
+      <i class="fas fa-bolt"></i> Live Booking Demo
+    </div>
+    <h1 class="text-4xl sm:text-5xl font-black mb-4">Reserve Your <span class="grad">Parking Slot</span></h1>
+    <p class="text-gray-400 max-w-xl mx-auto">Fill in the details below. All fields are validated. Submit to receive your instant booking confirmation.</p>
+  </div>
+</section>
+
+<!-- ZONE AVAILABILITY SUMMARY -->
+<section class="pb-6">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+      <div class="text-center p-4 rounded-2xl" style="background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2)">
+        <div class="text-violet-400 font-bold text-lg">6 / 8</div>
+        <div class="text-xs text-gray-400 mt-1">Zone A · ₹20/hr</div>
+        <div class="text-xs text-emerald-400 mt-1">Available</div>
+      </div>
+      <div class="text-center p-4 rounded-2xl" style="background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.2)">
+        <div class="text-cyan-400 font-bold text-lg">3 / 5</div>
+        <div class="text-xs text-gray-400 mt-1">Zone B · ₹25/hr</div>
+        <div class="text-xs text-emerald-400 mt-1">Available</div>
+      </div>
+      <div class="text-center p-4 rounded-2xl" style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2)">
+        <div class="text-emerald-400 font-bold text-lg">5 / 6</div>
+        <div class="text-xs text-gray-400 mt-1">Zone C · ₹15/hr</div>
+        <div class="text-xs text-emerald-400 mt-1">Available</div>
+      </div>
+      <div class="text-center p-4 rounded-2xl" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2)">
+        <div class="text-yellow-400 font-bold text-lg">2 / 3</div>
+        <div class="text-xs text-gray-400 mt-1">VIP · ₹50/hr</div>
+        <div class="text-xs text-emerald-400 mt-1">Available</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section class="py-10 pb-24">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+      <!-- FORM -->
+      <div class="lg:col-span-2 reveal">
+        <div class="rounded-3xl p-8" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)">
+          <h2 class="text-2xl font-bold mb-8">Booking Details</h2>
+          <form id="booking-form" novalidate>
+
+            <!-- Personal Info -->
+            <div class="mb-6">
+              <div class="flex items-center gap-2 mb-5">
+                <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(124,58,237,.3);color:#a78bfa">1</div>
+                <span class="text-gray-300 text-sm font-semibold">Personal Information</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="label" for="fullname">Full Name *</label>
+                  <input class="form-input" type="text" id="fullname" placeholder="e.g. Rahul Sharma" autocomplete="name">
+                  <span class="err hidden" id="fullname-err"></span>
+                </div>
+                <div>
+                  <label class="label" for="phone">Mobile Number *</label>
+                  <input class="form-input" type="tel" id="phone" placeholder="10-digit number" maxlength="10" autocomplete="tel">
+                  <span class="err hidden" id="phone-err"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Vehicle Info -->
+            <div class="mb-6">
+              <div class="flex items-center gap-2 mb-5">
+                <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(6,182,212,.3);color:#67e8f9">2</div>
+                <span class="text-gray-300 text-sm font-semibold">Vehicle Information</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="label" for="vehicle-number">Vehicle Number *</label>
+                  <input class="form-input" type="text" id="vehicle-number" placeholder="e.g. MH12AB1234" style="text-transform:uppercase" autocomplete="off">
+                  <span class="err hidden" id="vehicle-number-err"></span>
+                </div>
+                <div>
+                  <label class="label" for="vehicle-type">Vehicle Type *</label>
+                  <select class="form-input" id="vehicle-type">
+                    <option value="">-- Select Type --</option>
+                    <option value="Car">Car / Sedan</option>
+                    <option value="SUV">SUV / MUV</option>
+                    <option value="Motorcycle">Motorcycle / Scooter</option>
+                    <option value="Truck">Truck / Pickup</option>
+                    <option value="Bus">Bus / Van</option>
+                  </select>
+                  <span class="err hidden" id="vehicle-type-err"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Booking Time -->
+            <div class="mb-6">
+              <div class="flex items-center gap-2 mb-5">
+                <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(245,158,11,.3);color:#fcd34d">3</div>
+                <span class="text-gray-300 text-sm font-semibold">Booking Schedule</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                <div>
+                  <label class="label" for="date">Parking Date *</label>
+                  <input class="form-input" type="date" id="date">
+                  <span class="err hidden" id="date-err"></span>
+                </div>
+                <div>
+                  <label class="label" for="time">Start Time *</label>
+                  <input class="form-input" type="time" id="time">
+                  <span class="err hidden" id="time-err"></span>
+                </div>
+                <div>
+                  <label class="label" for="duration">Duration *</label>
+                  <select class="form-input" id="duration">
+                    <option value="">-- Hours --</option>
+                    <option value="1">1 Hour</option>
+                    <option value="2">2 Hours</option>
+                    <option value="3">3 Hours</option>
+                    <option value="6">6 Hours</option>
+                    <option value="12">12 Hours</option>
+                    <option value="24">24 Hours (Full Day)</option>
+                  </select>
+                  <span class="err hidden" id="duration-err"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slot Selection -->
+            <div class="mb-8">
+              <div class="flex items-center gap-2 mb-5">
+                <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(16,185,129,.3);color:#6ee7b7">4</div>
+                <span class="text-gray-300 text-sm font-semibold">Slot Selection</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="label" for="zone">Parking Zone *</label>
+                  <select class="form-input" id="zone">
+                    <option value="">-- Select Zone --</option>
+                    <option value="A">Zone A – Ground Floor (₹20/hr)</option>
+                    <option value="B">Zone B – First Floor (₹25/hr)</option>
+                    <option value="C">Zone C – Basement (₹15/hr)</option>
+                    <option value="VIP">VIP Zone – Premium (₹50/hr)</option>
+                  </select>
+                  <span class="err hidden" id="zone-err"></span>
+                </div>
+                <div>
+                  <label class="label" for="slot">Parking Slot *</label>
+                  <select class="form-input" id="slot">
+                    <option value="">-- Select Slot --</option>
+                  </select>
+                  <span class="err hidden" id="slot-err"></span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-xs mt-3"><i class="fas fa-info-circle mr-1.5"></i>Select a zone first to see available slots</p>
+            </div>
+
+            <button type="submit" class="btn-primary w-full py-4 text-base font-bold flex items-center justify-center gap-3">
+              <i class="fas fa-calendar-check"></i> Confirm Reservation
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- PRICE SUMMARY -->
+      <div class="reveal" style="transition-delay:.1s">
+        <div class="rounded-3xl p-7 sticky top-24" style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2)">
+          <h3 class="text-white font-bold text-lg mb-6">Booking Summary</h3>
+          <div class="space-y-1 mb-6">
+            <div class="summary-row"><span class="text-gray-400">Hourly Rate</span><span class="text-white font-semibold" id="rate-display">--</span></div>
+            <div class="summary-row"><span class="text-gray-400">Duration</span><span class="text-white font-semibold" id="duration-display">--</span></div>
+            <div class="summary-row" style="border-top:1px solid rgba(124,58,237,.3);margin-top:8px;padding-top:12px">
+              <span class="text-white font-bold">Total Amount</span>
+              <span class="text-violet-400 font-black text-xl" id="total-display">--</span>
+            </div>
+          </div>
+          <div class="rounded-2xl p-4 mb-6" style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2)">
+            <div class="flex items-start gap-3">
+              <i class="fas fa-shield-halved text-emerald-400 mt-0.5"></i>
+              <div>
+                <div class="text-emerald-400 text-sm font-semibold">Secure Booking</div>
+                <div class="text-gray-400 text-xs mt-1">Your slot is guaranteed once confirmed. Free cancellation up to 30 mins before.</div>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-center gap-2 text-gray-400"><i class="fas fa-check text-emerald-400 text-xs"></i> Instant confirmation</div>
+            <div class="flex items-center gap-2 text-gray-400"><i class="fas fa-check text-emerald-400 text-xs"></i> No hidden charges</div>
+            <div class="flex items-center gap-2 text-gray-400"><i class="fas fa-check text-emerald-400 text-xs"></i> Booking ID generated</div>
+            <div class="flex items-center gap-2 text-gray-400"><i class="fas fa-check text-emerald-400 text-xs"></i> 24/7 support available</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONFIRMATION MODAL -->
+<div id="conf-modal" style="display:none">
+  <div class="rounded-3xl p-8 w-full max-w-lg relative" style="background:#0e1628;border:1px solid rgba(124,58,237,.3);box-shadow:0 0 60px rgba(124,58,237,.3)">
+    <div class="text-center mb-6">
+      <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style="background:linear-gradient(135deg,rgba(16,185,129,.3),rgba(5,150,105,.2));border:2px solid rgba(16,185,129,.5)">
+        <i class="fas fa-circle-check text-emerald-400 text-4xl"></i>
+      </div>
+      <h2 class="text-2xl font-black text-white mb-1">Booking Confirmed!</h2>
+      <p class="text-gray-400 text-sm">Your parking slot has been reserved</p>
+      <div class="mt-3 px-4 py-2 rounded-xl inline-block" style="background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.3)">
+        <span class="text-violet-300 text-sm font-bold">Booking ID: </span><span class="text-white font-black text-sm" id="conf-id">--</span>
+      </div>
+    </div>
+    <div class="space-y-1 mb-7 rounded-2xl p-5" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)">
+      <div class="summary-row"><span class="text-gray-500 text-xs">Name</span><span class="text-white text-sm font-medium" id="conf-name">--</span></div>
+      <div class="summary-row"><span class="text-gray-500 text-xs">Mobile</span><span class="text-white text-sm font-medium" id="conf-phone">--</span></div>
+      <div class="summary-row"><span class="text-gray-500 text-xs">Vehicle No.</span><span class="text-white text-sm font-medium" id="conf-vehicle">--</span></div>
+      <div class="summary-row"><span class="text-gray-500 text-xs">Vehicle Type</span><span class="text-white text-sm font-medium" id="conf-type">--</span></div>
+      <div class="summary-row"><span class="text-gray-500 text-xs">Date</span><span class="text-white text-sm font-medium" id="conf-date">--</span></div>
+      <div class="summary-row"><span class="text-gray-500 text-xs">Time</span><span class="text-white text-sm font-medium" id="conf-time">--</span></div>
+      <div class="summary-row"><span class="text-gray-500 text-xs">Duration</span><span class="text-white text-sm font-medium" id="conf-duration">--</span></div>
+      <div class="summary-row"><span class="text-gray-500 text-xs">Zone</span><span class="text-white text-sm font-medium" id="conf-zone">--</span></div>
+      <div class="summary-row"><span class="text-gray-500 text-xs">Slot</span><span class="text-white text-sm font-medium" id="conf-slot">--</span></div>
+      <div class="summary-row" style="border-bottom:none"><span class="text-gray-400 text-sm font-semibold">Amount Paid</span><span class="text-emerald-400 font-black text-lg" id="conf-total">--</span></div>
+    </div>
+    <div class="flex gap-3">
+      <button id="new-booking-btn" class="btn-outline flex-1 py-3 text-sm">New Booking</button>
+      <button id="close-modal" class="btn-primary flex-1 py-3 text-sm">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#030711;border-top:1px solid rgba(255,255,255,.06)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-5">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)"><i class="fas fa-square-parking text-white"></i></div>
+        <span class="text-xl font-bold text-white">Park<span class="grad">Smart</span></span>
+      </div>
+      <div class="flex flex-wrap gap-5 text-sm text-gray-500">
+        <a href="index.html"    class="hover:text-gray-300 transition-colors">Home</a>
+        <a href="features.html" class="hover:text-gray-300 transition-colors">Features</a>
+        <a href="admin.html"    class="hover:text-gray-300 transition-colors">Admin</a>
+        <a href="user.html"     class="hover:text-gray-300 transition-colors">User</a>
+        <a href="client.html"   class="hover:text-gray-300 transition-colors">Client</a>
+        <a href="overview.html" class="hover:text-gray-300 transition-colors">Overview</a>
+      </div>
+    </div>
+    <div class="border-t border-white/5 mt-6 pt-6 text-center text-gray-600 text-sm">© 2024 ParkSmart — College Project</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+// Update duration display in summary
+document.getElementById('duration')?.addEventListener('change', function() {
+  const el = document.getElementById('duration-display');
+  if (el) el.textContent = this.value ? this.value + ' hour(s)' : '--';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>User Module – ParkSmart</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#050a18;color:#fff;overflow-x:hidden}
+#navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,10,24,.82);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);transition:all .3s}
+.nav-link{color:#94a3b8;transition:color .2s;font-size:.875rem;font-weight:500;position:relative}.nav-link:hover{color:#fff}
+.active-nav{color:#fff!important}.active-nav::after{content:'';display:block;position:absolute;bottom:-4px;left:0;right:0;height:2px;background:linear-gradient(90deg,#7c3aed,#06b6d4);border-radius:1px}
+.grad{background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}.reveal.is-visible{opacity:1;transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;font-weight:600;border-radius:50px;transition:opacity .2s}.btn-primary:hover{opacity:.88}
+.btn-outline{border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:50px;transition:all .2s}.btn-outline:hover{background:rgba(255,255,255,.06)}
+.glass{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px}
+.slot-btn{border:1px solid rgba(6,182,212,.3);background:rgba(6,182,212,.08);color:#67e8f9;border-radius:10px;padding:10px 14px;font-size:.8rem;font-weight:600;transition:all .2s;cursor:pointer}
+.slot-btn:hover{background:rgba(6,182,212,.18);border-color:rgba(6,182,212,.6)}
+.slot-btn.booked{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.08);color:#fca5a5;cursor:not-allowed;opacity:.6}
+.mock-row td{border-bottom:1px solid rgba(255,255,255,.05);padding:12px 16px;font-size:.875rem;color:#94a3b8}
+.mock-row td:first-child{color:#e2e8f0;font-weight:500}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#050a18}::-webkit-scrollbar-thumb{background:#7c3aed;border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)"><i class="fas fa-square-parking text-white text-lg"></i></div>
+        <span class="text-xl font-bold text-white">Park<span class="grad">Smart</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-7">
+        <a href="index.html"    class="nav-link">Home</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <div class="relative">
+          <button id="modules-btn" class="nav-link active-nav flex items-center gap-1 cursor-pointer bg-transparent border-0 p-0">Modules <i class="fas fa-chevron-down text-xs ml-1 opacity-60"></i></button>
+          <div id="modules-menu" class="hidden absolute top-8 left-0 w-52 rounded-2xl shadow-2xl py-2" style="background:#0e1628;border:1px solid rgba(255,255,255,.09)">
+            <a href="admin.html"  class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"><span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs" style="background:rgba(124,58,237,.2)"><i class="fas fa-user-shield text-violet-400"></i></span> Admin Module</a>
+            <a href="user.html"   class="flex items-center gap-3 px-4 py-2.5 text-sm text-white bg-white/5 transition-colors"><span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs" style="background:rgba(6,182,212,.2)"><i class="fas fa-user text-cyan-400"></i></span> User Module</a>
+            <a href="client.html" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"><span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs" style="background:rgba(16,185,129,.2)"><i class="fas fa-building text-emerald-400"></i></span> Client Module</a>
+          </div>
+        </div>
+        <a href="booking.html"  class="nav-link">Book Now</a>
+        <a href="overview.html" class="nav-link">Overview</a>
+      </div>
+      <a href="booking.html" class="hidden md:block btn-primary px-5 py-2.5 text-sm">Reserve Slot <i class="fas fa-arrow-right ml-1.5 text-xs"></i></a>
+      <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white p-2"><i class="fas fa-bars text-xl"></i></button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 pt-2 flex flex-col gap-3 border-t border-white/5" style="background:rgba(5,10,24,.97)">
+    <a href="index.html"    class="text-gray-300 hover:text-white text-sm py-1">Home</a>
+    <a href="features.html" class="text-gray-300 hover:text-white text-sm py-1">Features</a>
+    <a href="admin.html"    class="text-gray-300 hover:text-white text-sm py-1">Admin Module</a>
+    <a href="user.html"     class="text-gray-300 hover:text-white text-sm py-1">User Module</a>
+    <a href="client.html"   class="text-gray-300 hover:text-white text-sm py-1">Client Module</a>
+    <a href="booking.html"  class="text-gray-300 hover:text-white text-sm py-1">Book Now</a>
+    <a href="overview.html" class="text-gray-300 hover:text-white text-sm py-1">Overview</a>
+    <a href="booking.html"  class="btn-primary text-center py-2.5 text-sm mt-1">Reserve Slot</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<section class="pt-32 pb-14" style="background:radial-gradient(ellipse 70% 60% at 30% 0%,rgba(6,182,212,.2),transparent 65%),#050a18">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+      <div class="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0" style="background:linear-gradient(135deg,rgba(6,182,212,.4),rgba(8,145,178,.3));border:1px solid rgba(6,182,212,.4)">
+        <i class="fas fa-user text-cyan-400 text-2xl"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold px-3 py-1 rounded-full" style="background:rgba(6,182,212,.2);color:#67e8f9;border:1px solid rgba(6,182,212,.3)">Module 2 of 3</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-black mb-2">User <span class="grad">Module</span></h1>
+        <p class="text-gray-400 text-lg max-w-2xl">End-user portal — search available slots, make bookings, track history, and manage all your parking reservations.</p>
+      </div>
+    </div>
+    <div class="flex gap-3 mt-8">
+      <a href="admin.html"  class="btn-outline px-5 py-2.5 text-sm inline-flex items-center gap-2"><i class="fas fa-arrow-left text-xs"></i> Prev: Admin</a>
+      <a href="client.html" class="btn-primary px-5 py-2.5 text-sm inline-flex items-center gap-2">Next: Client <i class="fas fa-arrow-right text-xs"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- USER STATS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-14">
+      <div class="card p-5 reveal" style="transition-delay:.05s">
+        <i class="fas fa-bookmark text-cyan-400 text-xl mb-3 block"></i>
+        <div class="text-2xl font-bold text-white mb-1" data-count="12">0</div>
+        <div class="text-gray-500 text-sm">My Bookings</div>
+      </div>
+      <div class="card p-5 reveal" style="transition-delay:.1s">
+        <i class="fas fa-circle-check text-emerald-400 text-xl mb-3 block"></i>
+        <div class="text-2xl font-bold text-white mb-1" data-count="9">0</div>
+        <div class="text-gray-500 text-sm">Completed</div>
+      </div>
+      <div class="card p-5 reveal" style="transition-delay:.15s">
+        <i class="fas fa-clock text-yellow-400 text-xl mb-3 block"></i>
+        <div class="text-2xl font-bold text-white mb-1" data-count="2">0</div>
+        <div class="text-gray-500 text-sm">Upcoming</div>
+      </div>
+      <div class="card p-5 reveal" style="transition-delay:.2s">
+        <i class="fas fa-indian-rupee-sign text-violet-400 text-xl mb-3 block"></i>
+        <div class="text-2xl font-bold text-white mb-1" data-count="480" data-prefix="₹">₹0</div>
+        <div class="text-gray-500 text-sm">Total Spent</div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- SLOT SEARCH MOCK -->
+      <div class="reveal">
+        <h2 class="text-2xl font-bold mb-6">Find Available Slots</h2>
+        <div class="card p-6">
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <label class="text-gray-400 text-xs font-medium mb-2 block">Location</label>
+              <div class="px-4 py-3 rounded-xl text-sm text-white" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)">City Center Mall</div>
+            </div>
+            <div>
+              <label class="text-gray-400 text-xs font-medium mb-2 block">Vehicle Type</label>
+              <div class="px-4 py-3 rounded-xl text-sm text-white" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)">Car / Sedan</div>
+            </div>
+            <div>
+              <label class="text-gray-400 text-xs font-medium mb-2 block">Date</label>
+              <div class="px-4 py-3 rounded-xl text-sm text-white" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)">2024-12-05</div>
+            </div>
+            <div>
+              <label class="text-gray-400 text-xs font-medium mb-2 block">Duration</label>
+              <div class="px-4 py-3 rounded-xl text-sm text-white" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)">2 Hours</div>
+            </div>
+          </div>
+          <div class="mb-5">
+            <div class="text-sm text-gray-400 mb-3 flex items-center justify-between">
+              <span>Available Slots — Zone A:</span>
+              <span class="text-emerald-400 text-xs">6 available</span>
+            </div>
+            <div class="grid grid-cols-4 gap-2">
+              <div class="slot-btn text-center">A-01</div>
+              <div class="slot-btn text-center">A-02</div>
+              <div class="slot-btn booked text-center">A-03 ✗</div>
+              <div class="slot-btn text-center">A-04</div>
+              <div class="slot-btn text-center">A-05</div>
+              <div class="slot-btn booked text-center">A-06 ✗</div>
+              <div class="slot-btn text-center">A-07</div>
+              <div class="slot-btn text-center">A-08</div>
+            </div>
+          </div>
+          <a href="booking.html" class="btn-primary w-full text-center py-3 text-sm block">Book Selected Slot <i class="fas fa-arrow-right ml-2 text-xs"></i></a>
+        </div>
+      </div>
+
+      <!-- MY BOOKINGS -->
+      <div class="reveal" style="transition-delay:.1s">
+        <h2 class="text-2xl font-bold mb-6">My Bookings</h2>
+        <div class="space-y-4">
+          <!-- Booking 1 - upcoming -->
+          <div class="card p-5">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <div class="text-white font-semibold text-sm mb-1">Slot A-04 · Zone A Ground Floor</div>
+                <div class="text-gray-500 text-xs">PKR-00182341 · MH12AB1234</div>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold shrink-0" style="background:rgba(245,158,11,.15);color:#fcd34d">Upcoming</span>
+            </div>
+            <div class="flex gap-5 text-xs text-gray-500">
+              <span><i class="fas fa-calendar mr-1.5 text-violet-400"></i>Dec 05, 2024</span>
+              <span><i class="fas fa-clock mr-1.5 text-cyan-400"></i>10:00 AM – 12:00 PM</span>
+              <span><i class="fas fa-indian-rupee-sign mr-1 text-emerald-400"></i>₹60</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <a href="booking.html" class="btn-primary text-xs px-4 py-2 inline-block">Modify</a>
+              <button class="btn-outline text-xs px-4 py-2">Cancel</button>
+            </div>
+          </div>
+          <!-- Booking 2 - completed -->
+          <div class="card p-5">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <div class="text-white font-semibold text-sm mb-1">Slot VIP-01 · VIP Zone Premium</div>
+                <div class="text-gray-500 text-xs">PKR-00181921 · MH12AB1234</div>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold shrink-0" style="background:rgba(16,185,129,.15);color:#6ee7b7">Completed</span>
+            </div>
+            <div class="flex gap-5 text-xs text-gray-500">
+              <span><i class="fas fa-calendar mr-1.5 text-violet-400"></i>Nov 28, 2024</span>
+              <span><i class="fas fa-clock mr-1.5 text-cyan-400"></i>02:00 PM – 05:00 PM</span>
+              <span><i class="fas fa-indian-rupee-sign mr-1 text-emerald-400"></i>₹150</span>
+            </div>
+          </div>
+          <!-- Booking 3 - cancelled -->
+          <div class="card p-5" style="opacity:.65">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <div class="text-white font-semibold text-sm mb-1">Slot B-02 · Zone B First Floor</div>
+                <div class="text-gray-500 text-xs">PKR-00181743 · MH12AB1234</div>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold shrink-0" style="background:rgba(239,68,68,.15);color:#fca5a5">Cancelled</span>
+            </div>
+            <div class="flex gap-5 text-xs text-gray-500">
+              <span><i class="fas fa-calendar mr-1.5 text-violet-400"></i>Nov 20, 2024</span>
+              <span><i class="fas fa-clock mr-1.5 text-cyan-400"></i>09:00 AM</span>
+              <span><i class="fas fa-indian-rupee-sign mr-1 text-emerald-400"></i>₹50</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- USER FEATURES -->
+    <div class="mt-14 reveal">
+      <h2 class="text-2xl font-bold mb-7">User Capabilities</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="card p-6 text-center"><i class="fas fa-magnifying-glass text-cyan-400 text-2xl mb-3 block"></i><div class="text-white font-semibold text-sm mb-1">Search Slots</div><p class="text-gray-500 text-xs">Filter by location, date, type, and duration</p></div>
+        <div class="card p-6 text-center"><i class="fas fa-calendar-plus text-violet-400 text-2xl mb-3 block"></i><div class="text-white font-semibold text-sm mb-1">Book Online</div><p class="text-gray-500 text-xs">Reserve any available slot in seconds</p></div>
+        <div class="card p-6 text-center"><i class="fas fa-rotate-left text-yellow-400 text-2xl mb-3 block"></i><div class="text-white font-semibold text-sm mb-1">Cancel / Modify</div><p class="text-gray-500 text-xs">Flexible cancellation with refund support</p></div>
+        <div class="card p-6 text-center"><i class="fas fa-receipt text-emerald-400 text-2xl mb-3 block"></i><div class="text-white font-semibold text-sm mb-1">View History</div><p class="text-gray-500 text-xs">Full history of past and upcoming bookings</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE NAV -->
+<section class="py-12" style="background:rgba(255,255,255,.015)">
+  <div class="max-w-4xl mx-auto px-4 text-center reveal">
+    <p class="text-gray-400 text-sm mb-6">Explore other modules</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="admin.html"  class="glass px-7 py-4 rounded-2xl flex items-center gap-3 hover:border-violet-500/40 transition-colors group">
+        <i class="fas fa-user-shield text-violet-400 text-xl"></i>
+        <div class="text-left"><div class="text-white font-semibold text-sm">Admin Module</div><div class="text-gray-500 text-xs">Full system management and analytics</div></div>
+        <i class="fas fa-arrow-right text-gray-600 group-hover:text-violet-400 ml-auto transition-colors"></i>
+      </a>
+      <a href="client.html" class="glass px-7 py-4 rounded-2xl flex items-center gap-3 hover:border-emerald-500/40 transition-colors group">
+        <i class="fas fa-building text-emerald-400 text-xl"></i>
+        <div class="text-left"><div class="text-white font-semibold text-sm">Client Module</div><div class="text-gray-500 text-xs">Parking area management and revenue</div></div>
+        <i class="fas fa-arrow-right text-gray-600 group-hover:text-emerald-400 ml-auto transition-colors"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#030711;border-top:1px solid rgba(255,255,255,.06)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-5">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)"><i class="fas fa-square-parking text-white"></i></div>
+        <span class="text-xl font-bold text-white">Park<span class="grad">Smart</span></span>
+      </div>
+      <div class="flex flex-wrap gap-5 text-sm text-gray-500">
+        <a href="index.html"    class="hover:text-gray-300 transition-colors">Home</a>
+        <a href="features.html" class="hover:text-gray-300 transition-colors">Features</a>
+        <a href="admin.html"    class="hover:text-gray-300 transition-colors">Admin</a>
+        <a href="user.html"     class="hover:text-gray-300 transition-colors">User</a>
+        <a href="client.html"   class="hover:text-gray-300 transition-colors">Client</a>
+        <a href="booking.html"  class="hover:text-gray-300 transition-colors">Booking</a>
+        <a href="overview.html" class="hover:text-gray-300 transition-colors">Overview</a>
+      </div>
+    </div>
+    <div class="border-t border-white/5 mt-6 pt-6 text-center text-gray-600 text-sm">© 2024 ParkSmart — College Project</div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
