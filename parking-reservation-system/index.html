@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ParkSmart – Online Vehicle Parking Reservation System</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#050a18;color:#fff;overflow-x:hidden}
+#navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,10,24,.82);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);transition:all .3s}
+.nav-link{color:#94a3b8;transition:color .2s;font-size:.875rem;font-weight:500;position:relative}
+.nav-link:hover{color:#fff}
+.active-nav{color:#fff!important}
+.active-nav::after{content:'';display:block;position:absolute;bottom:-4px;left:0;right:0;height:2px;background:linear-gradient(90deg,#7c3aed,#06b6d4);border-radius:1px}
+.grad{background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.glass{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(12px)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.is-visible{opacity:1;transform:translateY(0)}
+.hero-bg{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,58,237,.35),transparent 70%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(6,182,212,.18),transparent 60%),#050a18}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;font-weight:600;border-radius:50px;transition:opacity .2s,transform .2s}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-outline{border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:50px;transition:all .2s}
+.btn-outline:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4)}
+.stat-glows{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,182,212,.12));border:1px solid rgba(255,255,255,.08);border-radius:16px}
+.feature-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;transition:transform .3s,border-color .3s,background .3s}
+.feature-card:hover{transform:translateY(-6px);border-color:rgba(124,58,237,.4);background:rgba(124,58,237,.07)}
+.step-line{background:linear-gradient(90deg,#7c3aed,#06b6d4)}
+.module-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;transition:transform .3s,border-color .3s}
+.module-card:hover{transform:translateY(-6px)}
+.flow-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#050a18}
+::-webkit-scrollbar-thumb{background:#7c3aed;border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="navbar">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)">
+          <i class="fas fa-square-parking text-white text-lg"></i>
+        </div>
+        <span class="text-xl font-bold text-white">Park<span class="grad">Smart</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-7">
+        <a href="index.html"    class="nav-link">Home</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <div class="relative">
+          <button id="modules-btn" class="nav-link flex items-center gap-1 cursor-pointer bg-transparent border-0 p-0">Modules <i class="fas fa-chevron-down text-xs ml-1 opacity-60"></i></button>
+          <div id="modules-menu" class="hidden absolute top-8 left-0 w-52 rounded-2xl shadow-2xl py-2" style="background:#0e1628;border:1px solid rgba(255,255,255,.09)">
+            <a href="admin.html"  class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"><span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs" style="background:rgba(124,58,237,.2)"><i class="fas fa-user-shield text-violet-400"></i></span> Admin Module</a>
+            <a href="user.html"   class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"><span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs" style="background:rgba(6,182,212,.2)"><i class="fas fa-user text-cyan-400"></i></span> User Module</a>
+            <a href="client.html" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"><span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs" style="background:rgba(16,185,129,.2)"><i class="fas fa-building text-emerald-400"></i></span> Client Module</a>
+          </div>
+        </div>
+        <a href="booking.html"  class="nav-link">Book Now</a>
+        <a href="overview.html" class="nav-link">Overview</a>
+      </div>
+      <div class="hidden md:flex">
+        <a href="booking.html" class="btn-primary px-5 py-2.5 text-sm">Reserve Slot <i class="fas fa-arrow-right ml-1.5 text-xs"></i></a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white p-2"><i class="fas fa-bars text-xl"></i></button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 pt-2 flex flex-col gap-3 border-t border-white/5" style="background:rgba(5,10,24,.97)">
+    <a href="index.html"    class="text-gray-300 hover:text-white text-sm py-1">Home</a>
+    <a href="features.html" class="text-gray-300 hover:text-white text-sm py-1">Features</a>
+    <a href="admin.html"    class="text-gray-300 hover:text-white text-sm py-1">Admin Module</a>
+    <a href="user.html"     class="text-gray-300 hover:text-white text-sm py-1">User Module</a>
+    <a href="client.html"   class="text-gray-300 hover:text-white text-sm py-1">Client Module</a>
+    <a href="booking.html"  class="text-gray-300 hover:text-white text-sm py-1">Book Now</a>
+    <a href="overview.html" class="text-gray-300 hover:text-white text-sm py-1">Overview</a>
+    <a href="booking.html"  class="btn-primary text-center py-2.5 text-sm mt-1">Reserve Slot</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero-bg min-h-screen flex items-center pt-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
+    <div class="text-center max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-8" style="background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);color:#a78bfa">
+        <span class="w-2 h-2 rounded-full bg-violet-400 animate-pulse"></span> College Project Demo — Frontend Prototype
+      </div>
+      <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+        Smart Parking<br><span class="grad">Smarter Cities</span>
+      </h1>
+      <p class="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        Reserve your parking spot in seconds. Real-time availability, seamless booking, instant confirmation — all from your browser.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="booking.html" class="btn-primary px-8 py-4 text-base">
+          <i class="fas fa-calendar-check mr-2"></i> Book a Slot Now
+        </a>
+        <a href="overview.html" class="btn-outline px-8 py-4 text-base">
+          <i class="fas fa-book-open mr-2 opacity-70"></i> View Overview
+        </a>
+      </div>
+      <!-- floating badges -->
+      <div class="flex flex-wrap justify-center gap-4 mt-14">
+        <div class="glass px-5 py-3 rounded-2xl flex items-center gap-3">
+          <i class="fas fa-shield-halved text-violet-400 text-xl"></i>
+          <div class="text-left"><div class="text-white font-bold text-lg" data-count="500" data-suffix="+">0+</div><div class="text-gray-500 text-xs">Parking Slots</div></div>
+        </div>
+        <div class="glass px-5 py-3 rounded-2xl flex items-center gap-3">
+          <i class="fas fa-users text-cyan-400 text-xl"></i>
+          <div class="text-left"><div class="text-white font-bold text-lg" data-count="10000" data-suffix="+">0+</div><div class="text-gray-500 text-xs">Registered Users</div></div>
+        </div>
+        <div class="glass px-5 py-3 rounded-2xl flex items-center gap-3">
+          <i class="fas fa-location-dot text-emerald-400 text-xl"></i>
+          <div class="text-left"><div class="text-white font-bold text-lg" data-count="50" data-suffix="+">0+</div><div class="text-gray-500 text-xs">Locations</div></div>
+        </div>
+        <div class="glass px-5 py-3 rounded-2xl flex items-center gap-3">
+          <i class="fas fa-star text-yellow-400 text-xl"></i>
+          <div class="text-left"><div class="text-white font-bold text-lg" data-count="4.9" data-suffix="/5" data-decimal="true">0</div><div class="text-gray-500 text-xs">Avg Rating</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES PREVIEW ═══ -->
+<section class="py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <p class="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3">Why ParkSmart</p>
+      <h2 class="text-4xl sm:text-5xl font-bold mb-4">Powerful <span class="grad">Features</span></h2>
+      <p class="text-gray-400 max-w-xl mx-auto">Everything you need to manage parking efficiently — built for users, clients, and administrators.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Feature 1 -->
+      <div class="feature-card p-7 reveal" style="transition-delay:.05s">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style="background:rgba(124,58,237,.2)">
+          <i class="fas fa-signal text-violet-400 text-xl"></i>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">Real-Time Availability</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Live slot status updates. Know exactly which spots are free before you arrive.</p>
+      </div>
+      <!-- Feature 2 -->
+      <div class="feature-card p-7 reveal" style="transition-delay:.1s">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style="background:rgba(6,182,212,.2)">
+          <i class="fas fa-calendar-check text-cyan-400 text-xl"></i>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">Online Booking</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Reserve your slot in advance. No queues, no waiting — just park and go.</p>
+      </div>
+      <!-- Feature 3 -->
+      <div class="feature-card p-7 reveal" style="transition-delay:.15s">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style="background:rgba(245,158,11,.2)">
+          <i class="fas fa-credit-card text-yellow-400 text-xl"></i>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">Payment System</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Secure digital payments. Pay online with UPI, cards, or net banking.</p>
+      </div>
+      <!-- Feature 4 -->
+      <div class="feature-card p-7 reveal" style="transition-delay:.2s">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style="background:rgba(16,185,129,.2)">
+          <i class="fas fa-sliders text-emerald-400 text-xl"></i>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-2">Admin Control</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Full dashboard control. Manage slots, users, revenues and reports centrally.</p>
+      </div>
+    </div>
+    <div class="text-center mt-10 reveal">
+      <a href="features.html" class="btn-outline px-7 py-3 text-sm inline-block">See All Features <i class="fas fa-arrow-right ml-2 text-xs"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="py-24" style="background:rgba(255,255,255,.015)">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <p class="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3">Simple Process</p>
+      <h2 class="text-4xl sm:text-5xl font-bold mb-4">How It <span class="grad">Works</span></h2>
+    </div>
+    <div class="relative">
+      <!-- connector line (desktop) -->
+      <div class="hidden lg:block absolute top-10 left-[10%] right-[10%] h-0.5 step-line rounded"></div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+        <!-- Steps -->
+        <div class="flex flex-col items-center text-center reveal" style="transition-delay:.05s">
+          <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-5 z-10" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);box-shadow:0 0 30px rgba(124,58,237,.4)">
+            <i class="fas fa-magnifying-glass text-white text-2xl"></i>
+          </div>
+          <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold mb-3" style="background:rgba(124,58,237,.3);color:#a78bfa">1</div>
+          <h4 class="text-white font-bold mb-1">Search</h4>
+          <p class="text-gray-500 text-xs">Find parking near your destination</p>
+        </div>
+        <div class="flex flex-col items-center text-center reveal" style="transition-delay:.1s">
+          <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-5 z-10" style="background:linear-gradient(135deg,#6d28d9,#4f46e5);box-shadow:0 0 30px rgba(109,40,217,.4)">
+            <i class="fas fa-map-pin text-white text-2xl"></i>
+          </div>
+          <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold mb-3" style="background:rgba(79,70,229,.3);color:#818cf8">2</div>
+          <h4 class="text-white font-bold mb-1">Select</h4>
+          <p class="text-gray-500 text-xs">Choose your preferred slot</p>
+        </div>
+        <div class="flex flex-col items-center text-center reveal" style="transition-delay:.15s">
+          <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-5 z-10" style="background:linear-gradient(135deg,#4f46e5,#0891b2);box-shadow:0 0 30px rgba(79,70,229,.4)">
+            <i class="fas fa-calendar-plus text-white text-2xl"></i>
+          </div>
+          <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold mb-3" style="background:rgba(8,145,178,.3);color:#67e8f9">3</div>
+          <h4 class="text-white font-bold mb-1">Book</h4>
+          <p class="text-gray-500 text-xs">Fill in vehicle & timing details</p>
+        </div>
+        <div class="flex flex-col items-center text-center reveal" style="transition-delay:.2s">
+          <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-5 z-10" style="background:linear-gradient(135deg,#0891b2,#059669);box-shadow:0 0 30px rgba(8,145,178,.4)">
+            <i class="fas fa-wallet text-white text-2xl"></i>
+          </div>
+          <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold mb-3" style="background:rgba(5,150,105,.3);color:#6ee7b7">4</div>
+          <h4 class="text-white font-bold mb-1">Pay</h4>
+          <p class="text-gray-500 text-xs">Secure online payment</p>
+        </div>
+        <div class="flex flex-col items-center text-center reveal" style="transition-delay:.25s">
+          <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-5 z-10" style="background:linear-gradient(135deg,#059669,#10b981);box-shadow:0 0 30px rgba(5,150,105,.4)">
+            <i class="fas fa-circle-check text-white text-2xl"></i>
+          </div>
+          <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold mb-3" style="background:rgba(16,185,129,.3);color:#6ee7b7">5</div>
+          <h4 class="text-white font-bold mb-1">Confirm</h4>
+          <p class="text-gray-500 text-xs">Instant booking confirmation</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-12 reveal">
+      <a href="booking.html" class="btn-primary px-8 py-3.5 text-sm inline-block">Try Live Demo <i class="fas fa-bolt ml-2 text-xs"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MODULES ═══ -->
+<section class="py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <p class="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3">System Modules</p>
+      <h2 class="text-4xl sm:text-5xl font-bold mb-4">Three-Tier <span class="grad">Architecture</span></h2>
+      <p class="text-gray-400 max-w-xl mx-auto">Three distinct roles — each with dedicated functionality and their own dashboard.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Admin -->
+      <div class="module-card p-8 reveal hover:border-violet-500/40" style="transition-delay:.05s">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(109,40,217,.2));border:1px solid rgba(124,58,237,.3)">
+          <i class="fas fa-user-shield text-violet-400 text-2xl"></i>
+        </div>
+        <h3 class="text-white text-2xl font-bold mb-3">Admin Module</h3>
+        <p class="text-gray-500 text-sm mb-5 leading-relaxed">Full system control. Manage slots, approve bookings, generate reports, monitor users and revenue.</p>
+        <ul class="space-y-2 mb-7">
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-violet-400 text-xs"></i> Manage Parking Slots</li>
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-violet-400 text-xs"></i> User Management</li>
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-violet-400 text-xs"></i> Revenue Reports</li>
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-violet-400 text-xs"></i> System Analytics</li>
+        </ul>
+        <a href="admin.html" class="flex items-center gap-2 text-violet-400 hover:text-violet-300 text-sm font-semibold transition-colors">Explore Admin Panel <i class="fas fa-arrow-right text-xs"></i></a>
+      </div>
+      <!-- User -->
+      <div class="module-card p-8 reveal hover:border-cyan-500/40" style="transition-delay:.1s;border-color:rgba(6,182,212,.2)">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:linear-gradient(135deg,rgba(6,182,212,.3),rgba(8,145,178,.2));border:1px solid rgba(6,182,212,.3)">
+          <i class="fas fa-user text-cyan-400 text-2xl"></i>
+        </div>
+        <h3 class="text-white text-2xl font-bold mb-3">User Module</h3>
+        <p class="text-gray-500 text-sm mb-5 leading-relaxed">End-user experience. Search available slots, make bookings, track history, and manage reservations.</p>
+        <ul class="space-y-2 mb-7">
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-cyan-400 text-xs"></i> Search Available Slots</li>
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-cyan-400 text-xs"></i> Make Reservations</li>
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-cyan-400 text-xs"></i> Cancel / Modify Booking</li>
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-cyan-400 text-xs"></i> Booking History</li>
+        </ul>
+        <a href="user.html" class="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm font-semibold transition-colors">Explore User Panel <i class="fas fa-arrow-right text-xs"></i></a>
+      </div>
+      <!-- Client -->
+      <div class="module-card p-8 reveal hover:border-emerald-500/40" style="transition-delay:.15s">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background:linear-gradient(135deg,rgba(16,185,129,.3),rgba(5,150,105,.2));border:1px solid rgba(16,185,129,.3)">
+          <i class="fas fa-building text-emerald-400 text-2xl"></i>
+        </div>
+        <h3 class="text-white text-2xl font-bold mb-3">Client Module</h3>
+        <p class="text-gray-500 text-sm mb-5 leading-relaxed">Parking area owners can manage their properties, set rates, view occupancy and track revenue.</p>
+        <ul class="space-y-2 mb-7">
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-emerald-400 text-xs"></i> Manage Parking Areas</li>
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-emerald-400 text-xs"></i> Set Pricing & Rules</li>
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-emerald-400 text-xs"></i> Occupancy Tracking</li>
+          <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-check text-emerald-400 text-xs"></i> Revenue Analytics</li>
+        </ul>
+        <a href="client.html" class="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 text-sm font-semibold transition-colors">Explore Client Panel <i class="fas fa-arrow-right text-xs"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SYSTEM FLOW ═══ -->
+<section class="py-24" style="background:rgba(255,255,255,.015)">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14 reveal">
+      <p class="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3">Architecture</p>
+      <h2 class="text-4xl font-bold mb-4">System <span class="grad">Flow</span></h2>
+      <p class="text-gray-400">How data travels through the ParkSmart system</p>
+    </div>
+    <div class="flex flex-col lg:flex-row items-center justify-center gap-4 reveal">
+      <!-- User -->
+      <div class="flow-box px-6 py-5 text-center w-36">
+        <i class="fas fa-user text-cyan-400 text-2xl mb-2 block"></i>
+        <div class="text-white font-semibold text-sm">User</div>
+        <div class="text-gray-500 text-xs mt-1">Browser / App</div>
+      </div>
+      <div class="text-violet-400 text-xl lg:rotate-0 rotate-90"><i class="fas fa-arrow-right"></i></div>
+      <!-- Website -->
+      <div class="flow-box px-6 py-5 text-center w-36" style="border-color:rgba(124,58,237,.4);background:rgba(124,58,237,.08)">
+        <i class="fas fa-globe text-violet-400 text-2xl mb-2 block"></i>
+        <div class="text-white font-semibold text-sm">Website</div>
+        <div class="text-gray-500 text-xs mt-1">Frontend UI</div>
+      </div>
+      <div class="text-violet-400 text-xl lg:rotate-0 rotate-90"><i class="fas fa-arrow-right"></i></div>
+      <!-- Server -->
+      <div class="flow-box px-6 py-5 text-center w-36">
+        <i class="fas fa-server text-yellow-400 text-2xl mb-2 block"></i>
+        <div class="text-white font-semibold text-sm">Server</div>
+        <div class="text-gray-500 text-xs mt-1">Backend Logic</div>
+      </div>
+      <div class="text-violet-400 text-xl lg:rotate-0 rotate-90"><i class="fas fa-arrow-right"></i></div>
+      <!-- Database -->
+      <div class="flow-box px-6 py-5 text-center w-36">
+        <i class="fas fa-database text-emerald-400 text-2xl mb-2 block"></i>
+        <div class="text-white font-semibold text-sm">Database</div>
+        <div class="text-gray-500 text-xs mt-1">MySQL / DB</div>
+      </div>
+      <div class="text-violet-400 text-xl lg:rotate-0 rotate-90"><i class="fas fa-arrow-right"></i></div>
+      <!-- Admin -->
+      <div class="flow-box px-6 py-5 text-center w-36">
+        <i class="fas fa-user-shield text-violet-400 text-2xl mb-2 block"></i>
+        <div class="text-white font-semibold text-sm">Admin</div>
+        <div class="text-gray-500 text-xs mt-1">Control Panel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="py-24">
+  <div class="max-w-4xl mx-auto px-4 text-center reveal">
+    <div class="rounded-3xl p-14" style="background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(6,182,212,.15));border:1px solid rgba(124,58,237,.25)">
+      <i class="fas fa-square-parking text-5xl mb-6 block" style="background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i>
+      <h2 class="text-4xl font-bold mb-4">Ready to Reserve Your Slot?</h2>
+      <p class="text-gray-400 mb-8">Experience hassle-free parking with real-time availability and instant confirmation.</p>
+      <a href="booking.html" class="btn-primary px-10 py-4 text-base inline-block">Book Now — It's Free</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer style="background:#030711;border-top:1px solid rgba(255,255,255,.06)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+      <div class="col-span-2">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)"><i class="fas fa-square-parking text-white"></i></div>
+          <span class="text-xl font-bold text-white">Park<span class="grad">Smart</span></span>
+        </div>
+        <p class="text-gray-500 text-sm max-w-xs leading-relaxed">Online Vehicle Parking Reservation System — A college project demonstrating smart urban parking solutions.</p>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Navigation</h4>
+        <ul class="space-y-2.5">
+          <li><a href="index.html"    class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Home</a></li>
+          <li><a href="features.html" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Features</a></li>
+          <li><a href="booking.html"  class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Book a Slot</a></li>
+          <li><a href="overview.html" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Overview</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Modules</h4>
+        <ul class="space-y-2.5">
+          <li><a href="admin.html"  class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Admin Module</a></li>
+          <li><a href="user.html"   class="text-gray-500 hover:text-gray-300 text-sm transition-colors">User Module</a></li>
+          <li><a href="client.html" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Client Module</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/5 pt-8 text-center text-gray-600 text-sm">
+      © 2024 ParkSmart — Online Vehicle Parking Reservation System &nbsp;|&nbsp; College Project
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
